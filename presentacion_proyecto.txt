@@ -1,0 +1,114 @@
+================================================================================
+          PROGRAMER - PLATAFORMA EDUCATIVA DE APRENDIZAJE DE PROGRAMACIÓN
+                        DOSSIER DE PRESENTACIÓN DEL PROYECTO
+================================================================================
+
+Este documento contiene la exposición técnica, la descripción funcional y la
+arquitectura del proyecto "Programer", una plataforma moderna orientada a la
+enseñanza y gestión de cursos de programación.
+
+--------------------------------------------------------------------------------
+1. DESCRIPCIÓN GENERAL DEL PROYECTO
+--------------------------------------------------------------------------------
+"Programer" es una aplicación web dinámica diseñada para democratizar el acceso
+a la educación tecnológica. El sistema permite a usuarios de cualquier nivel de
+conocimiento explorar contenidos formativos organizados por niveles de dificultad,
+mientras proporciona a los administradores un completo entorno de gestión tanto
+de la oferta de cursos (catálogo) como de la administración de usuarios del
+sistema.
+
+--------------------------------------------------------------------------------
+2. ARQUITECTURA TECNOLÓGICA
+--------------------------------------------------------------------------------
+La plataforma está construida utilizando tecnologías modernas e industriales:
+
+*   Framework Principal: Laravel (PHP).
+*   Motor de Plantillas: Blade (con layouts modulares y componentes dinámicos).
+*   Diseño y Estilos: Tailwind CSS integrado con DaisyUI para una interfaz
+    oscura, fluida, adaptativa (Responsive Design) y con efectos visuales modernos
+    (gradientes dinámicos, sombras, efectos de escala interactivos).
+*   Persistencia de Datos: Eloquent ORM con base de datos relacional.
+*   Seguridad y Autenticación: Laravel Breeze integrado para control de sesiones,
+    registro, verificación y protección de endpoints mediante middlewares.
+
+--------------------------------------------------------------------------------
+3. MODELOS DE DATOS PRINCIPALES
+--------------------------------------------------------------------------------
+
+A. Modelo 'User' (Usuarios)
+   Representa las cuentas del sistema. Cuenta con los siguientes campos clave:
+   - name (Nombre del usuario)
+   - email (Dirección de correo electrónico única)
+   - password (Contraseña encriptada mediante algoritmo Hash)
+   - role (Rol asignado; por ejemplo, 'admin' para administradores del sistema)
+
+B. Modelo 'Course' (Cursos/Productos)
+   Representa la oferta formativa de la plataforma. Posee los siguientes atributos:
+   - title (Título descriptivo del curso)
+   - description (Resumen y detalles del contenido didáctico)
+   - level (Nivel del curso: Básico, Intermedio o Avanzado)
+   - gradient (Clase de gradiente de Tailwind para la cabecera visual del curso)
+   - tag (Etiqueta o abreviatura representativa del curso)
+
+--------------------------------------------------------------------------------
+4. ROLES Y FUNCIONALIDADES DEL SISTEMA
+--------------------------------------------------------------------------------
+
+La aplicación distingue claramente tres niveles de acceso gracias a un sistema
+de seguridad basado en roles y middlewares:
+
+A. Visitantes y Usuarios No Registrados (Público General)
+   - Inicio e Landing Page ('/'): Vista del banner interactivo "Aprende a programar"
+     y un bloque de recomendación inteligente que muestra tres cursos seleccionados
+     de manera aleatoria.
+   - Quienes Somos ('/about'): Página corporativa estructurada en la que se detallan
+     la misión, visión y valores (Innovación, Comunidad, Accesibilidad y Excelencia)
+     de la plataforma educativa.
+   - Catálogo de Cursos Público ('/products'): Acceso al catálogo completo para
+     listar todos los cursos disponibles.
+   - Detalle del Curso ('/products/{id}'): Ficha detallada de un curso específico,
+     indicando su nivel de dificultad, tag visual y descripción detallada.
+   - Registro y Acceso: Formularios para la creación de cuentas de usuario e inicio
+     de sesión seguro.
+
+B. Usuarios Registrados (Estudiantes / Miembros de la Comunidad)
+   - Panel de Control ('/dashboard'): Espacio de bienvenida privado tras autenticarse
+     correctamente en la aplicación.
+   - Perfil de Usuario ('/profile'): Panel de autogestión donde el usuario puede:
+     * Actualizar su información básica (Nombre, Correo electrónico).
+     * Cambiar su contraseña de forma segura.
+     * Proceder a la eliminación voluntaria y definitiva de su cuenta.
+
+C. Administradores (Usuarios con rol 'admin')
+   Los administradores del sistema tienen pleno control operativo sobre la
+   plataforma a través de paneles seguros protegidos por el middleware 'AdminMiddleware':
+
+   - Gestión de Cursos (CRUD Completo en '/products'):
+     * Crear nuevos cursos de programación asignándoles título, descripción, nivel,
+       gradiente visual y tag.
+     * Editar y actualizar la información de cursos existentes.
+     * Eliminar cursos del catálogo.
+   
+   - Gestión de Personal Administrativo (CRUD Completo en '/admin/users'):
+     * Panel de control exclusivo para listar los administradores de la plataforma.
+     * Registrar nuevas cuentas con privilegios de administrador.
+     * Modificar perfiles administrativos existentes (incluyendo cambio de credenciales).
+     * Revocar permisos o eliminar cuentas de administración (con validación de seguridad
+       para evitar que un administrador se elimine a sí mismo por error).
+
+--------------------------------------------------------------------------------
+5. SEGURIDAD Y CONTROL DE FLUJO
+--------------------------------------------------------------------------------
+*   Control de Roles mediante Middleware: Las rutas críticas de creación, edición y
+    eliminación (tanto de cursos como de usuarios administrativos) están blindadas
+    mediante el middleware 'AdminMiddleware'. Si un usuario sin rol 'admin' intenta
+    acceder a estas secciones, el sistema deniega el acceso automáticamente
+    retornando un error HTTP 403 (Acceso denegado).
+*   Validación Robusta de Formularios: Toda entrada de datos en la creación de
+    cursos y usuarios es sometida a reglas estrictas de validación en el servidor
+    (requerimiento de campos, formato de correo único, longitud de contraseñas, etc.)
+    para evitar inconsistencias de datos o inyecciones de código.
+
+================================================================================
+                                 FIN DEL DOCUMENTO
+================================================================================
