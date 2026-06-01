@@ -36,7 +36,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // Rutas Públicas de Cursos (después, para que {product} no capture "create")
-Route::resource('products', CourseController::class)->only(['index', 'show']);
+Route::resource('products', CourseController::class)->only(['index']);
+
+Route::middleware('auth')->group(function () {
+    Route::resource('products', CourseController::class)->only(['show']);
+});
 
 Route::get('/list', function () {
     return view('list');
