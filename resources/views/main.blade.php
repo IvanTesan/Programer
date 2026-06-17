@@ -13,7 +13,7 @@
 
                         {{-- Texto Descriptivo --}}
                         <p class="mb-8 text-lg text-gray-300 leading-relaxed">
-                            Texto descriptivo Lorem ipsum dolor sit amet consectetur adipiscing elit, quam interdum sagittis neque facilisi luctus sodales suscipit, curabitur gravida suspendisse dictumst molestie nullam. Lacus eros tincidunt vulputate fermentum molestie egestas purus, a mi vestibulum cras tempor bibendum
+                            ¡Te damos la bienvenida a nuestra plataforma! Aquí encontrarás los mejores cursos para comenzar y perfeccionar tus habilidades en el mundo de la programación.
                         </p>
 
                         <a href="{{ route('products.index') }}"><button class="btn btn-primary btn-lg shadow-lg">
